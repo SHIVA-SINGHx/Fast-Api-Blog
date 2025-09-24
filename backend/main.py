@@ -43,3 +43,14 @@ def delete_blog(id:int, db:Session = Depends(get_db)):
         return blog_delete
     
     raise HTTPException(status_code=404, detail="Blog not found")
+
+
+@app.post("/user")
+def user(request: schemas.User, db:Session = Depends(get_db)):
+    new_user = models.User(name= request.name, email=request.email, password=request.password)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    
+    return new_user
+    
