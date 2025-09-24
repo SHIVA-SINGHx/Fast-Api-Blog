@@ -26,4 +26,12 @@ def get_one_blog(id:int, db: Session = Depends(get_db)):
         return product_query
     
     raise HTTPException(status_code= 404, detail= "Cannot find the id")
+
+# update blog
+@app.put("/blog/{id}", response_model = schemas.Blog)
+def update_blog(id: int, product: schemas.BlogCreate, db: Session = Depends(get_db)):
+    db_update = blog.update_blog(db,product,id)
+    if db_update:
+        return db_update
+    raise HTTPException(status_code=404, detail= "Invalid Update id")
     
