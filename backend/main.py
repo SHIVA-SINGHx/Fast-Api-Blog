@@ -34,4 +34,12 @@ def update_blog(id: int, product: schemas.BlogCreate, db: Session = Depends(get_
     if db_update:
         return db_update
     raise HTTPException(status_code=404, detail= "Invalid Update id")
+
+# delete blog
+@app.delete("/blog/{id}", response_model = schemas.Blog)
+def delete_blog(id:int, db:Session = Depends(get_db)):
+    blog_delete = blog.delete_blog(db, id)
+    if blog_delete:
+        return blog_delete
     
+    raise HTTPException(status_code=404, detail="Blog not found")

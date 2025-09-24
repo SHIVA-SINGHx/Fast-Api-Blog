@@ -25,4 +25,10 @@ def update_blog(db: Session, blog:BlogCreate, blog_id: int):
             db.commit()
             db.refresh(blog_query)
             return blog_query
-    
+
+def delete_blog(db: Session, id: int):
+    blog_query = db.query(Blog).filter(Blog.id == id).first()
+    if blog_query:
+        db.delete(blog_query)
+        db.commit()
+        return blog_query
