@@ -59,5 +59,3 @@ def get_user_by_id(id: int, db: Session = Depends(get_db)):
     if not user_query:
         raise HTTPException(status_code=404, detail="Invalid User ID")
     return user_query
-
-

@@ -22,12 +22,14 @@ class UserBase(BaseModel):
     name: str
     email: str
 
+
 class UserCreate(UserBase):
-    password: str   
+    password: str
 
 class ShowUser(BaseModel):
     name: str
     email: str
+
 
     class Config:
         orm_mode = True
