@@ -1,7 +1,8 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-import models, schemas, blog, authentication
+import models, schemas, blog, authentication 
 from database import engine, Base, get_db
+from authentication import authenticate_user
 
 
 app = FastAPI()
@@ -61,8 +62,23 @@ def get_user_by_id(id: int, db: Session = Depends(get_db)):
     return user_query
 
 
+
+
  # LOGIN ROUTES
  
-@app.post("/login", response_model= schemas.Login)
-def login_user(login_data: schemas.Login, db: Session= Depends(get_db)):
-    user = 
+@app.post("/login")
+def login(login_data: schemas.Login, db: Session = Depends(get_db)):
+    user = authenticate_user(db, login_data.email, login_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password"
+        )
+    return {
+        "message": "Login successful ✅",
+        "user": {
+            "id": user.id,
+            "name": user.name,
+            "email": user.email
+        }
+    }
