@@ -18,7 +18,7 @@ class ShowBlog(BlogBase):
     class Config:
         orm_mode = True 
         
-# User Schema________
+# User Schema
 
 class UserBase(BaseModel):
     name: str
@@ -37,7 +37,7 @@ class ShowUser(BaseModel):
         orm_mode = True
         
         
-# Authentication 
+# Authentication Schema
 
 class Login(BaseModel):
     email: str
