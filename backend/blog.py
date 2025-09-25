@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
-from models import Blog
-from schemas import BlogCreate
-from schemas import User
+from models import Blog, User
+from schemas import BlogCreate, UserCreate
+
+
 
 
 def create_blog(db: Session, data: BlogCreate):
@@ -35,10 +36,10 @@ def delete_blog(db: Session, id: int):
         return blog_query
 
 
-def create_user(db: Session, data:User):
+# User Section
+def create_user(db: Session, data: UserCreate):
     user_instance = User(**data.model_dump())
     db.add(user_instance)
     db.commit()
     db.refresh(user_instance)
-    
     return user_instance

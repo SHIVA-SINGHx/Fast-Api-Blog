@@ -45,6 +45,6 @@ def delete_blog(id:int, db:Session = Depends(get_db)):
     raise HTTPException(status_code=404, detail="Blog not found")
 
 # created user
-@app.post("/user", response_model= schemas.User)
-def create_user_route(user_data: schemas.User, db:Session= Depends(get_db)):
+@app.post("/user", response_model= schemas.UserCreate)
+def create_user_route(user_data: schemas.UserCreate, db:Session= Depends(get_db)):
     return blog.create_user(db, user_data)

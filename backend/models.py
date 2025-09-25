@@ -9,11 +9,10 @@ class Blog(Base):
     description = Column(String, index=True, nullable=True)
     author = Column(String, index=True)
 
-
 class User(Base):
     __tablename__ = "users"
     
-    id= Column(Integer, primary_key=True, index=True, autoincrement=True)
-    name= Column(String, index=True)
-    email= Column(String, index=True)
-    password= Column(String, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    name = Column(String, index=True)
+    email = Column(String, index=True, unique=True)   # unique email is better
+    password = Column(String, index=True)
