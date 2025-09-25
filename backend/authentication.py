@@ -1,15 +1,24 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from schemas import Login
 from passlib.context import CryptContext
-import database
+from database import get_db
+import models, schemas
 
 app = FastAPI()
 
-def login(db: Session, data:Login):
-    login_instance = Login(**data.model_dump())
-    db.add(login_instance)
-    db.commmit()
-    db.refresh(login_instance)
+
+pwd_cxt = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+# LOGIN FUNCTION
+def authenticate_user(db: Session, email: str, password: str):
+    # user ko database se nikaalo
+    user = db.query(models.User).filter(models.User.email == email).first()
+    if not user:
+        return False
     
-    return login
+    # password verify 
+    if not pwd_cxt.verify(password, user.password):
+        return False
+    
+    return user
