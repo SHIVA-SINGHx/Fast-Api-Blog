@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from models import Blog, User
 from schemas import BlogCreate, UserCreate
+from passlib.context import CryptContext
 
 
 
@@ -36,9 +37,18 @@ def delete_blog(db: Session, id: int):
         return blog_query
 
 
+#Hash password
+pwd_cxt = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 # User Section
 def create_user(db: Session, data: UserCreate):
-    user_instance = User(**data.model_dump())
+    
+    hashed_password = pwd_cxt.hash(data.password)
+
+    user_data = data.model_dump()
+    user_data["password"] = hashed_password  
+
+    user_instance = User(**user_data)   
     db.add(user_instance)
     db.commit()
     db.refresh(user_instance)
