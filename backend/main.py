@@ -62,8 +62,6 @@ def get_user_by_id(id: int, db: Session = Depends(get_db)):
     return user_query
 
 
-
-
  # LOGIN ROUTES
  
 @app.post("/login")

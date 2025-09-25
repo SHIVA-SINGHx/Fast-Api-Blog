@@ -39,7 +39,6 @@ class ShowUser(BaseModel):
         
 # Authentication 
 
-
 class Login(BaseModel):
     email: str
     password: str

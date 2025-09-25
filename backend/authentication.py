@@ -12,7 +12,6 @@ pwd_cxt = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # LOGIN FUNCTION
 def authenticate_user(db: Session, email: str, password: str):
-    # user ko database se nikaalo
     user = db.query(models.User).filter(models.User.email == email).first()
     if not user:
         return False
