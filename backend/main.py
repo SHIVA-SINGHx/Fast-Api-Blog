@@ -9,7 +9,6 @@ app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
 
-
 # create blog 
 @app.post("/blog", response_model=schemas.Blog)
 def create_blog_route(blog_data: schemas.BlogCreate, db: Session = Depends(get_db)):
@@ -73,7 +72,7 @@ def login(login_data: schemas.Login, db: Session = Depends(get_db)):
             detail="Invalid email or password"
         )
     return {
-        "message": "Login successful ✅",
+        "message": "Login successful",
         "user": {
             "id": user.id,
             "name": user.name,
