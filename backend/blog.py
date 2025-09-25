@@ -39,7 +39,7 @@ def delete_blog(db: Session, id: int):
 #Hash password
 pwd_cxt = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# User Section
+# USER SECTION
 def create_user(db: Session, data: UserCreate):
     
     hashed_password = pwd_cxt.hash(data.password)

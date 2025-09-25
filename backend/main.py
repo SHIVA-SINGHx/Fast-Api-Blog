@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-import models, schemas, blog
+import models, schemas, blog, authentication
 from database import engine, Base, get_db
 
 
@@ -45,7 +45,7 @@ def delete_blog(id:int, db:Session = Depends(get_db)):
     
     raise HTTPException(status_code=404, detail="Blog not found")
 
-# Created User
+# CREATED USER ROUTES
 
 @app.post("/user/", response_model=schemas.ShowUser)
 def create_user(data: schemas.UserCreate, db: Session = Depends(get_db)):
@@ -59,3 +59,10 @@ def get_user_by_id(id: int, db: Session = Depends(get_db)):
     if not user_query:
         raise HTTPException(status_code=404, detail="Invalid User ID")
     return user_query
+
+
+ # LOGIN ROUTES
+ 
+@app.post("/login", response_model= schemas.Login)
+def login_user(login_data: schemas.Login, db: Session= Depends(get_db)):
+    return authentication.login(db, login_data)
