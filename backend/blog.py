@@ -1,8 +1,7 @@
 from sqlalchemy.orm import Session
 from models import Blog, User
-from schemas import BlogCreate, UserCreate
+from schemas import BlogCreate, UserCreate, ShowUser
 from passlib.context import CryptContext
-
 
 
 
@@ -53,3 +52,9 @@ def create_user(db: Session, data: UserCreate):
     db.commit()
     db.refresh(user_instance)
     return user_instance
+
+
+#Get User
+def get_user(db: Session, user_id: int):
+    user_query = db.query(User).filter(User.id == user_id).first()
+    return user_query 

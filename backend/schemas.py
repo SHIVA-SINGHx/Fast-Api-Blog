@@ -21,13 +21,13 @@ class BlogNoId(BlogBase):
 class UserBase(BaseModel):
     name: str
     email: str
-    password: str
 
 class UserCreate(UserBase):
-    pass
+    password: str   
 
-class UserResponse(UserBase):
-    id: int
+class ShowUser(BaseModel):
+    name: str
+    email: str
 
     class Config:
         orm_mode = True
