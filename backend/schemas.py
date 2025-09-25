@@ -11,12 +11,14 @@ class BlogCreate(BlogBase):
 class Blog(BlogBase):
     id: int
 
-class BlogNoId(BlogBase):
+class ShowBlog(BlogBase):
     name:str
     description:str
 
     class Config:
         orm_mode = True 
+        
+# User Schema________
 
 class UserBase(BaseModel):
     name: str
