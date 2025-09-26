@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 import models, schemas, blog, authentication 
 from database import engine, Base, get_db
 from authentication import authenticate_user
+import auth_token
 
 
 app = FastAPI()
@@ -63,19 +64,19 @@ def get_user_by_id(id: int, db: Session = Depends(get_db)):
 
  # LOGIN ROUTES
  
+
 @app.post("/login")
-def login(login_data: schemas.Login, db: Session = Depends(get_db)):
-    user = authenticate_user(db, login_data.email, login_data.password)
+def login(request: schemas.Login, db: Session = Depends(get_db)):
+    user = authenticate_user(db, request.email, request.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid email or password"
+            detail="Invalid Credentials"
         )
-    return {
-        "message": "Login successful",
-        "user": {
-            "id": user.id,
-            "name": user.name,
-            "email": user.email
-        }
-    }
+    
+    # create JWT token
+    access_token = auth_token.create_access_token(
+        data={"sub": user.email} 
+    )
+    
+    return { "email": user.email,"access_token": access_token, "token_type": "bearer"}
