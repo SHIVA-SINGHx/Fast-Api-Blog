@@ -24,9 +24,10 @@ fastapi-blog/
 backend
  │── main.py 
  │── auth_token.py
+ │── authentication.py
  │── models.py 
  │── schemas.py
- │── crud.py 
+ │── blog.py 
  │── database.py 
  │── requirements.txt
 
