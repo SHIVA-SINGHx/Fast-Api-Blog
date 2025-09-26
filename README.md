@@ -1,10 +1,10 @@
 # 📝 FastAPI Blog API  
 
 A simple and secure **Blog API** built with **FastAPI**, featuring:  
-- 🔐 JWT Authentication (login required for blog actions)  
-- ✍️ Create, Read, Update, Delete (CRUD) blogs  
-- 👤 User-based authentication with protected routes  
-- ⚡ High performance powered by FastAPI  
+- JWT Authentication (login required for blog actions)  
+- Create, Read, Update, Delete (CRUD) blogs  
+- User-based authentication with protected routes  
+- High performance powered by FastAPI  
 
 ---
 
