@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from database import get_db
-import models, schemas, auth_token
+import models, schemas
 
 app = FastAPI()
 

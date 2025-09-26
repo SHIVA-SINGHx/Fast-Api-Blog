@@ -64,7 +64,6 @@ def get_user_by_id(id: int, db: Session = Depends(get_db)):
 
  # LOGIN ROUTES
  
-
 @app.post("/login")
 def login(request: schemas.Login, db: Session = Depends(get_db)):
     user = authenticate_user(db, request.email, request.password)
