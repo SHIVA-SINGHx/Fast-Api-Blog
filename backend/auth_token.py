@@ -1,8 +1,16 @@
 from datetime import datetime, timedelta
+from sqlalchemy.orm import Session
 from jose import JWTError, jwt
 from typing import Optional
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordRequestForm
+from fastapi import FastAPI
+import schemas
+import models
+from database import get_db
+
+app = FastAPI()
 
 
 SECRET_KEY = "d92ddwero09sdk02knds93n5njn55"
@@ -33,7 +41,7 @@ def verify_token(token: str, credentials_exception):
         email: str = payload.get("sub")
         if email is None:
             raise credentials_exception
-        return email
+        token_data = schemas.TokenData(email=email)
     except JWTError:
         raise credentials_exception
 
@@ -44,3 +52,14 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
         headers={"WWW-Authenticate": "Bearer"},
     )
     return verify_token(token, credentials_exception)
+
+
+@app.post("/login")
+def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.email == request.username).first()
+    
+    if not user:
+        raise HTTPException(status_code=404, detail= "Getting some error")
+    
+    if not hash.verify(user.password, request.password):
+        raise HTTPException(status=404, detail="Invalid credentials")
