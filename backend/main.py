@@ -4,6 +4,7 @@ import models, schemas, blog, authentication
 from database import engine, Base, get_db
 from authentication import authenticate_user
 import auth_token
+from auth_token import get_current_user
 
 
 app = FastAPI()
@@ -79,3 +80,9 @@ def login(request: schemas.Login, db: Session = Depends(get_db)):
     )
     
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+@app.get("/blogs")
+def get_blogs(db: Session = Depends(get_db), current_user: str = Depends(get_current_user)):
+    blogs = db.query(models.Blog).all()
+    return {"user": current_user, "blogs": blogs}
