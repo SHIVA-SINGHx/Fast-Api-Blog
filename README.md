@@ -86,3 +86,11 @@ PostgreSQL – Database
 SQLAlchemy – ORM
 
 Pydantic – Data validation
+
+```
+Swagger Docs available at 👉 http://127.0.0.1:8000/docs
+
+<img width="1552" height="888" alt="FastAPI-Swagger-UI-09-26-2025_12_29_AM" src="https://github.com/user-attachments/assets/0eb4933c-2510-4d57-85cf-fe9e1e875907" />
+<img width="1507" height="799" alt="FastAPI-Swagger-UI-09-26-2025_12_29_AM (1)" src="https://github.com/user-attachments/assets/81039be4-b411-411e-81ce-34e77d113335" />
+
+
